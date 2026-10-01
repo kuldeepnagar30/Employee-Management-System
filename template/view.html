@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>View Employees</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 28px;
+        }
+
+        .header p {
+            color: #64748b;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            text-decoration: none;
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Table Box */
+        .table-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1e293b;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        .employee-id {
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .salary {
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 7px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        /* Empty State */
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #64748b;
+        }
+
+        .empty h2 {
+            margin-bottom: 10px;
+            color: #334155;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px 10px;
+            }
+
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .add-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .table-box {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+
+        <div>
+            <h1>Employee List</h1>
+            <p>View and manage all employee records</p>
+        </div>
+
+        <a href="add" class="add-btn">
+            + Add Employee
+        </a>
+
+    </div>
+
+
+    <!-- Employee Table -->
+    <div class="table-box">
+
+        {% if employees %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Salary</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for employee in employees %}
+
+                <tr>
+
+                    <td class="employee-id">
+                        {{ employee.employee_id }}
+                    </td>
+
+                    <td>
+                        {{ employee.name }}
+                    </td>
+
+                    <td>
+                        {{ employee.email }}
+                    </td>
+
+                    <td>
+                        {{ employee.phone }}
+                    </td>
+
+                    <td>
+                        {{ employee.department }}
+                    </td>
+
+                    <td>
+                        {{ employee.designation }}
+                    </td>
+
+                    <td class="salary">
+                        ₹{{ employee.salary }}
+                    </td>
+
+                    <td>
+                        {{ employee.address }}
+                    </td>
+
+                    <td>
+                        <div class="actions">
+
+                            <a href="{% url 'edit' employee.id %}" class="btn edit-btn">
+                                Edit
+                            </a>
+
+                            <form method="POST" action="{% url 'delete_employee' employee.id %}" onsubmit="return confirm('Are you sure you want to delete this employee?');" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn delete-btn">
+                                     Delete
+                                    </button>
+                                </form>
+
+                        </div>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>No Employees Found</h2>
+
+            <p>There are currently no employee records.</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

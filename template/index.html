@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background: #1e293b;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-text {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 38px;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .container p {
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+
+        .card h2 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 25px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn {
+            background: #2563eb;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .view-btn {
+            background: #16a34a;
+        }
+
+        .view-btn:hover {
+            background: #15803d;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-text {
+                display: none;
+            }
+
+            .main {
+                padding: 35px 18px;
+            }
+
+            .container h1 {
+                font-size: 28px;
+            }
+
+            .container p {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Employee Management System</div>
+        <div class="nav-text">Django CRUD System</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="container">
+
+            <h1>Employee Management System</h1>
+
+            <p>
+                Manage employee records easily with our simple CRUD system.
+            </p>
+
+            <div class="cards">
+
+                <!-- Add Employee -->
+                <div class="card">
+
+                    <div class="icon">➕</div>
+
+                    <h2>Add Employee</h2>
+
+                    <p>
+                        Add a new employee and save their information
+                        in the database.
+                    </p>
+
+                    <a href="add" class="btn add-btn">
+                        Add Employee
+                    </a>
+
+                </div>
+
+                <!-- View Employees -->
+                <div class="card">
+
+                    <div class="icon">👥</div>
+
+                    <h2>View Employees</h2>
+
+                    <p>
+                        View all employee records and manage
+                        their information.
+                    </p>
+
+                    <a href="{% url 'view' %}" class="btn view-btn">
+                        View Employees
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 Employee Management System
+    </footer>
+
+</body>
+</html>
+```
